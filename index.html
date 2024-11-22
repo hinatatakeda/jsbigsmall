@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+    <div class="image-container"  style="position: absolute;">
+        <img id="img" src="./same.png" alt="Sample Image" class="image">
+        <div class="resize-handle"></div>
+      </div>
+
+
+<script>
+const imageContainer = document.querySelector('.image-container');
+const resizeHandle = document.querySelector('.resize-handle');
+const image = document.querySelector('.image');
+
+let isResizing = false;
+
+resizeHandle.addEventListener('mousedown', (e) => {
+  isResizing = true;
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isResizing) {
+    const rect = imageContainer.getBoundingClientRect();
+    const width = e.clientX - rect.left;
+    const height = e.clientY - rect.top;
+
+    // 画像のサイズを更新
+    image.style.width = `${width}px`;
+    image.style.height = `${height}px`;
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isResizing = false;
+});
+
+
+// https://qiita.com/www-tacos/items/5614b61d3742d6db34b7
+img.onpointermove = function(event){
+    if(event.buttons){
+        this.style.left     = this.offsetLeft + event.movementX + 'px'
+        this.style.top      = this.offsetTop  + event.movementY + 'px'
+        this.style.position = 'absolute'
+        this.draggable      = false
+        this.setPointerCapture(event.pointerId)
+    }
+}
+
+
+</script>
+
+</body>
+</html>
+
+<style>
+    .image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  display: block;
+}
+
+.resize-handle {
+  position: absolute;
+  top: -10px; /* 画像の上に配置 */
+  left: -10px; /* 画像の左に配置 */
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%; /* 丸いボタン */
+  cursor: nwse-resize; /* 両矢印カーソル */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resize-handle::before {
+  content: "↔"; /* 両矢印の文字 */
+  font-size: 12px;
+}
+
+</style>
