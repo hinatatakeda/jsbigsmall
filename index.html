@@ -8,8 +8,13 @@
 </head>
 <body>
     <div class="image-container"  style="position: absolute;">
-        <img id="img" src="./same.png" alt="Sample Image" class="image">
-        <div class="resize-handle"></div>
+        <div id="img1" style="background-color: antiquewhite;">
+        <img src="./same.png" alt="Sample Image" class="image">
+        <div class="resize-handle">
+          
+        </div>
+
+      </div>
       </div>
 
 
@@ -42,9 +47,13 @@ document.addEventListener('mouseup', () => {
 });
 
 
+image.draggable = false
 // https://qiita.com/www-tacos/items/5614b61d3742d6db34b7
-img.onpointermove = function(event){
+img1.onpointermove = function(event){
+    // console.log("aaa",event)
+
     if(event.buttons){
+        console.log("event.buttons",event.buttons)
         this.style.left     = this.offsetLeft + event.movementX + 'px'
         this.style.top      = this.offsetTop  + event.movementY + 'px'
         this.style.position = 'absolute'
